@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:conv="clr-namespace:Goals.Converters"
+             mc:Ignorable="d"
+             BackgroundColor="#CFF2EE"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             x:Class="Goals.Views.Settings.SettingsPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:InverseVisibilityConverter x:Key="inverse"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="110" ></RowDefinition>
+                <RowDefinition Height="200"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <StackLayout Grid.Row="0"> 
+              <Button Scale="0.5" ImageSource="Back.png" Margin="-20"
+                    HorizontalOptions="Start" VerticalOptions="Start" BackgroundColor="Transparent"
+                    x:Name="BackToHome" Clicked="BackToHomeClicked" />
+            </StackLayout>
+
+            <StackLayout Grid.Row="1">
+                <controls:CircleImage Source="{Binding PhotoPath}"
+                                      HeightRequest="90" WidthRequest="90"/>
+                <Label Text="{Binding FullName}" FontFamily="Candarai.ttf#Candara"
+                       HorizontalOptions="Center" VerticalOptions="Center" TextColor="Black"
+                       FontSize="30"/>
+            </StackLayout>
+            <Image Grid.Row="1" Source="Avatar_Shape.png" Scale="0.31" Margin="0,-111,0,0" />
+
+            <StackLayout Grid.Row="2">
+                <Button Text="Currency" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent"
+                        FontFamily="Candarai.ttf#Candara" FontSize="30" TextColor="Black"
+                        x:Name="Currency" Clicked="CurrencyClicked"/>
+                <Button Text="Language" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent"
+                        FontFamily="Candarai.ttf#Candara" FontSize="30" TextColor="Black"
+                        x:Name="Language" Clicked="LanguageClicked"/>
+                
+                <StackLayout>
+                    <Grid>
+                        <Button Text="Sounds" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent"
+                            FontFamily="Candarai.ttf#Candara" FontSize="30" TextColor="Black"
+                            Command="{Binding ToggleSoundCommand}"
+                            x:Name="Sounds" Clicked="TogglerClicked"/>
+                        <Image Source="Scratch.png"  ScaleX="0.6"
+                               IsVisible="{Binding EnableAppSounds, Converter={StaticResource inverse}}" />
+                    </Grid>
+                </StackLayout>
+                
+                <StackLayout>
+                    <Grid>
+                        <Button Text="Notifications" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent"
+                            FontFamily="Candarai.ttf#Candara" FontSize="30" TextColor="Black"
+                            Command="{Binding ToggleNotificationCommand}"
+                            x:Name="Notifications" Clicked="TogglerClicked"/>
+                        <Image Source="Scratch.png"  ScaleX="0.6"
+                               IsVisible="{Binding EnableAppNotifications, Converter={StaticResource inverse}}"/>
+                    </Grid>
+                </StackLayout>
+            </StackLayout>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

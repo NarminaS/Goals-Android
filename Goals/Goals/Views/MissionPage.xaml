@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:conv="clr-namespace:Goals.Converters"
+             x:Class="Goals.Views.MissionPage"
+             xmlns:customControls="clr-namespace:Goals.Controls"
+             NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:InverseVisibilityConverter x:Key="inverse"></conv:InverseVisibilityConverter>
+            <conv:EditModeIconCodeConverter x:Key="iconCode"></conv:EditModeIconCodeConverter>
+            <conv:DateToStringFormatConverter x:Key="dateToString"></conv:DateToStringFormatConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="180"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="10"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <!-- Tab Bar -->
+            <Frame Padding="5" BackgroundColor="#45668E" Grid.ColumnSpan="3" Grid.Row="0"  CornerRadius="0">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+            
+                    <!-- Default label -->
+                    <Label IsVisible="{Binding IsEditMode, Converter={StaticResource inverse}}"
+                           IsEnabled="{Binding Loading, Converter={StaticResource inverse}}"
+                       Text="{Binding Name}" Grid.Row="0" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                       FontFamily="Merienda-Regular.ttf#Merienda-Regular" FontSize="24" TextColor="White"/>
+                    <!-- Edit mode label -->
+                    <Entry IsVisible="{Binding IsEditMode}"
+                           Text="{Binding Name}" Grid.Row="0" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                           FontFamily="Merienda-Regular.ttf#Merienda-Regular" FontSize="24" TextColor="White" Keyboard="Text"/>
+                    <!-- Go back to list button -->
+                    <Button Text="&#xf053;" FontSize="20" TextColor="White" Clicked="GoBack"
+                        BackgroundColor="#45668E" CornerRadius="50"
+                        Grid.Row="0" Grid.Column="0" FontFamily="{StaticResource FontAwesomeSolid}" />
+                    <!-- Edit button -->
+                    <Button Text="{Binding IsEditMode, Converter={StaticResource iconCode}}"
+                        FontSize="20" TextColor="White" 
+                        Command="{Binding SwitchToEditCommand}"
+                        BackgroundColor="#45668E" CornerRadius="50"
+                        Grid.Row="0" Grid.Column="2" FontFamily="{StaticResource FontAwesomeSolid}" 
+                        HorizontalOptions="End"/>
+                </Grid>
+            </Frame>
+
+            <!-- Main info -->
+            <Frame Grid.ColumnSpan="3" Grid.Row="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="Deadline" Grid.Row="0" Grid.Column="0"/>
+                    <Label IsVisible="{Binding IsEditMode, Converter={StaticResource inverse}}" 
+                           HorizontalOptions="StartAndExpand" VerticalOptions="Start"
+                           IsEnabled="{Binding Loading, Converter={StaticResource inverse}}"
+                       Text="{Binding Deadline, Converter={StaticResource dateToString}}" Grid.Row="0" Grid.Column="1" 
+                       FontFamily="Merienda-Regular.ttf#Merienda-Regular"/>
+                    <customControls:NullableDatePicker IsVisible="{Binding IsEditMode}"
+                           NullableDate="{Binding Deadline}" Grid.Row="0" Grid.Column="1" 
+                           HorizontalOptions="StartAndExpand" VerticalOptions="Start"
+                           FontFamily="Merienda-Regular.ttf#Merienda-Regular" FontSize="24" TextColor="White" />
+
+                    <Label Text="Description" Grid.Row="1" Grid.Column="0"/>
+                    <Label IsVisible="{Binding IsEditMode, Converter={StaticResource inverse}}"
+                           IsEnabled="{Binding Loading, Converter={StaticResource inverse}}"
+                       Text="{Binding Description}" Grid.Row="1" Grid.Column="1"
+                       FontFamily="Merienda-Regular.ttf#Merienda-Regular"/>
+                    <Editor IsVisible="{Binding IsEditMode}"
+                           Text="{Binding Description}" Grid.Row="1" Grid.Column="1"
+                           FontFamily="Merienda-Regular.ttf#Merienda-Regular" Keyboard="Text"/>
+
+                    <Label Text="Money you need" Grid.Row="2" Grid.Column="0"/>
+                    <Label IsVisible="{Binding IsEditMode, Converter={StaticResource inverse}}"
+                           IsEnabled="{Binding Loading, Converter={StaticResource inverse}}"
+                       Text="{Binding TotalSum, StringFormat='{0} AZN'}" Grid.Row="2" Grid.Column="1" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"
+                       FontFamily="Merienda-Regular.ttf#Merienda-Regular" />
+                    <Entry IsVisible="{Binding IsEditMode}"
+                           Text="{Binding TotalSum}" Grid.Row="2" Grid.Column="1"
+                           FontFamily="Merienda-Regular.ttf#Merienda-Regular" Keyboard="Numeric"/>
+                </Grid>
+            </Frame>
+
+            <Frame Grid.ColumnSpan="3" Grid.Row="2">
+                <StackLayout>
+                    <ActivityIndicator IsVisible="{Binding Loading}" IsRunning="True" Color="Aquamarine" 
+                     HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <ScrollView>
+                        <ListView ItemsSource="{Binding Tasks}" HasUnevenRows="True" SeparatorVisibility="None"
+                                  IsVisible="{Binding Loading, Converter={StaticResource Key=inverse}}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <ViewCell.View>
+                                            <Frame>
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label Text="{Binding Text}"/>
+                                                    <CheckBox IsChecked="{Binding Done}"/>
+                                                </StackLayout>
+                                            </Frame>
+                                        </ViewCell.View>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </ScrollView>
+                </StackLayout>
+            </Frame>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

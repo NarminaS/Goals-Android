@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:conv="clr-namespace:Goals.Converters"
+             xmlns:customControls="clr-namespace:Goals.Controls"
+             mc:Ignorable="d"
+             x:Class="Goals.MainPage" NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:InverseVisibilityConverter x:Key="inverse"></conv:InverseVisibilityConverter>
+            <conv:MissionStatusToColorConverter x:Key="missionStatus"></conv:MissionStatusToColorConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <Grid RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <!-- Tab Bar -->
+        <Frame Padding="5" BackgroundColor="#45668E" Grid.ColumnSpan="3" Grid.Row="0"  CornerRadius="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                
+                <ActivityIndicator IsRunning="True" Grid.Row="0" Grid.Column="0" IsVisible="{Binding Loading}" HorizontalOptions="Start"/>
+                <!--<Image Source="namelogo.png"  Grid.Row="0" Grid.Column="1" Scale="2.5" />-->
+                <Label Text="FutureLife" Grid.Row="0" Grid.Column="1" HorizontalTextAlignment="Center" 
+                       VerticalTextAlignment="Center"
+                       FontFamily="Lemonada-Regular.ttf#Lemonada-Regular" FontSize="24" TextColor="White"></Label>
+                <Button Text="&#xf067;" FontSize="20" TextColor="White" Command="{Binding OpenModalCommand}" 
+                        BackgroundColor="#45668E" CornerRadius="50"
+                        Grid.Row="0" Grid.Column="2" FontFamily="{StaticResource FontAwesomeSolid}" 
+                        HorizontalOptions="End"/>
+            </Grid>
+        </Frame>
+
+        <!-- Missions list -->
+        <Frame Grid.ColumnSpan="3" Grid.Row="1" >
+            <ListView HorizontalOptions="Center" ItemsSource="{Binding Missions}" SelectedItem="{Binding SelectedMission}" 
+                      IsEnabled="{Binding Loading, Converter={StaticResource Key=inverse}}"
+                      SeparatorVisibility="None" RowHeight="90" HasUnevenRows="True"
+                      x:Name="MissionsList" ItemSelected="MissionSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <customControls:ExtendedViewCell SelectedBackgroundColor="WhiteSmoke" >
+                            <ViewCell.View>
+                                <Frame BorderColor="#45668E" Margin="10">
+                                    <StackLayout>
+                                        <Label Text="{Binding Name}" FontSize="Body" />
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="40"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <ProgressBar Progress="{Binding ProgressNum}" HorizontalOptions="FillAndExpand" ProgressColor="{Binding Progress, Converter={StaticResource Key=missionStatus}}" ScaleY="4" Grid.Column="0"/>
+                                            <Label Text="{Binding Progress, StringFormat='{0}%'}" FontSize="Small" HorizontalOptions="End" Grid.Column="1"/>
+                                        </Grid>
+                                    </StackLayout>
+                                </Frame>
+                            </ViewCell.View>
+                        </customControls:ExtendedViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Frame>
+
+        <Frame BorderColor="Accent" Grid.ColumnSpan="3" Grid.Row="2" CornerRadius="0">
+
+        </Frame>
+
+    </Grid>
+
+</ContentPage>

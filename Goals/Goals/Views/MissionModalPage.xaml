@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:customControls="clr-namespace:Goals.Controls"
+             xmlns:conv="clr-namespace:Goals.Converters"
+             xmlns:localize="clr-namespace:Goals.MarkupExtensions"    
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             mc:Ignorable="d"
+             x:Class="Goals.Views.MissionModalPage">
+    
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <conv:InverseVisibilityConverter x:Key="inverse"></conv:InverseVisibilityConverter>
+            <conv:MissionStatusToColorConverter x:Key="missionStatus"></conv:MissionStatusToColorConverter>
+        </ResourceDictionary>
+    </pages:PopupPage.Resources>
+    
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation DurationIn="400" DurationOut="300"
+                                   EasingIn="SinOut" EasingOut="SinIn"
+                                   HasBackgroundAnimation="True"
+                                   PositionIn="Center" PositionOut="Center"
+                                   ScaleIn="1.2" ScaleOut="0.8" />
+    </pages:PopupPage.Animation>
+
+    <Frame WidthRequest="330" BackgroundColor="White" HorizontalOptions="Center" VerticalOptions="Center" Padding="20" CornerRadius="6" BorderColor="#45668E">
+        <StackLayout>
+            <StackLayout IsVisible="{Binding MissionCreating}">
+                <ActivityIndicator IsVisible="{Binding MissionCreating}" IsRunning="True" Color="#5cb85c" Scale="0.7" />
+            </StackLayout>
+            <StackLayout>
+                <Label Text="Yeah! Let's begin another path in life!" HorizontalTextAlignment="Center" FontSize="18" TextColor="#45668E" Padding="10,0" />
+                <Entry Text="{Binding Name}" Placeholder="Name your mission..." HorizontalOptions="Fill" Keyboard="Text"/>
+                <!--<DatePicker  Date="{Binding Deadline}"></DatePicker>-->
+                <customControls:NullableDatePicker NullableDate="{Binding Deadline}" Date="{Binding Deadline}"/>
+                <Editor Text="{Binding Description}" Placeholder="Some description..." Keyboard="Text"></Editor>
+                <Entry Text="{Binding TotalSum}" Keyboard="Numeric" Placeholder="Need money?..."></Entry>
+            </StackLayout>
+            <StackLayout>
+                <Button Text="{localize:Translate CreateMissionButton}" 
+                        Command="{Binding CreateMissionCommand}" CommandParameter="{Binding Name}" 
+                        BackgroundColor="#5cb85c" WidthRequest="330" IsVisible="{Binding MissionCreating, Converter={StaticResource inverse}}"/>
+            </StackLayout>
+        </StackLayout>
+    </Frame>
+
+</pages:PopupPage>

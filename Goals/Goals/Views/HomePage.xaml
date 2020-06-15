@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="Goals.Views.HomePage">
+    <ContentPage.Content>
+        <Frame BackgroundColor="#F6F599" Padding="12">
+            <Grid ColumnSpacing="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="40"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <!-- AVATAR -->
+                <StackLayout>
+                    <Frame Grid.Row="0" Grid.Column="0" CornerRadius="100" 
+                       HorizontalOptions="Center" HeightRequest="35" WidthRequest="35"
+                       Padding="0">
+                        <Image Source="{Binding PhotoPath}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Frame>
+                </StackLayout>
+                <Image Grid.Row="0" Grid.Column="0" Source="Avatar_Shape.png" Scale="1.1"
+                       Margin="0,0,0,15"/>
+
+                <!-- SETTINGS -->
+                <Button Grid.Row="0" Grid.Column="2" ImageSource="Shesterenka.png"
+                        Scale="0.4" BackgroundColor="Transparent" Margin="0,0,0,15"
+                        x:Name="Settings" Clicked="SettingsClicked"/>
+                
+                <!-- GOALS -->                
+                <Label Grid.ColumnSpan="3" Grid.Row="1" Text="Goals"
+                       HorizontalOptions="Center" VerticalOptions="Center" FontSize="55"
+                       FontFamily="Candarali.ttf#Candara"/>
+
+                <Button Grid.Column="1" Grid.Row="2" Scale="0.5" BackgroundColor="Transparent"
+                        ImageSource="Wallet_Aim.png"
+                        x:Name="Goals" Clicked="GoalsClicked"/>
+                
+                <!-- WALLET -->
+                <Label Grid.ColumnSpan="3" Grid.Row="3" Text="Wallet"
+                       HorizontalOptions="Center" VerticalOptions="Center" FontSize="55"
+                       FontFamily="Candarali.ttf#Candara"/>
+
+                <Button Grid.Column="1" Grid.Row="4" 
+                        Scale="0.5" BackgroundColor="Transparent"
+                        ImageSource="Goals_Pig.png" Margin="0,0,0,25"
+                        x:Name="Wallet" Clicked="WalletClicked"/>
+
+            </Grid>
+        </Frame>
+    </ContentPage.Content>
+</ContentPage>

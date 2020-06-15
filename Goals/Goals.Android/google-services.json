@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1057427884488",
+    "firebase_url": "https://goals-b4840.firebaseio.com",
+    "project_id": "goals-b4840",
+    "storage_bucket": "goals-b4840.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1057427884488:android:ecfe55dc29a0f9f9f4d8fd",
+        "android_client_info": {
+          "package_name": "com.companyname.goals2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1057427884488-fuhqh64nshaia7llpk0u929qdi8uncqf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.companyname.goals2",
+            "certificate_hash": "daf6f5a56c7b219cb07f445c9662e64db60c7f1b"
+          }
+        },
+        {
+          "client_id": "1057427884488-4a8pfj8qf8eblvlq6po52rfk6olvsc13.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8OLPs7JGtB6kiyVu7BMf3duqnd0F7-2U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1057427884488-4a8pfj8qf8eblvlq6po52rfk6olvsc13.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

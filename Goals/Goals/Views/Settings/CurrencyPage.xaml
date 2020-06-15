@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#95AEAB"
+             mc:Ignorable="d"
+             x:Class="Goals.Views.Settings.CurrencyPage">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="35"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <StackLayout Grid.Row="0" Padding="-20">
+                <Button  HorizontalOptions="Start" ImageSource="Back.png" Scale="0.5"
+                         WidthRequest="100" BackgroundColor="Transparent"
+                         x:Name="BackToSettings" Clicked="BackToSettingsClicked"/>
+            </StackLayout>
+            <Button Grid.Row="1" HorizontalOptions="Center" Scale="0.8" BackgroundColor="Transparent"
+                    ImageSource="{Binding DollarImage}"
+                    Command="{Binding ToggleCurrencyCommand}" CommandParameter="{Binding Dollar}"/>
+            <Label Text="USD" Grid.Row="2" HorizontalOptions="Center"
+                   FontFamily="Candarali.ttf#Candara" FontSize="43"/>
+            <Button Grid.Row="3" HorizontalOptions="Center" Scale="0.8" BackgroundColor="Transparent"
+                    ImageSource="{Binding ManatImage}"
+                    Command="{Binding ToggleCurrencyCommand}" CommandParameter="{Binding Manat}"/>
+            <Label Text="AZN" Grid.Row="4" HorizontalOptions="Center" 
+                   FontFamily="Candarali.ttf#Candara" FontSize="43"/>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
